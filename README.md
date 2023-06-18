@@ -2,7 +2,7 @@
 ==============================================================
 
 ## Description
-Sample .NET 7 REST API application implemented with basic [CQRS](https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/cqrs) approach and Domain Driven Design.
+Sample .NET 7 REST API application implemented with basic [CQRS](https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/cqrs) approach and Domain Driven Design. The system is divided into logical layers. Basically this logical division consists of the API, Application, Domain and Infrastructure layers.
 
 
  ![projects_dependencies](img/clean_architecture.jpg)
