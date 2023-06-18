@@ -1,9 +1,9 @@
 
-CashFlowV1 is a system .NET 7 REST API using CQRS implementation with raw SQL and DDD using Clean Architecture.
+CashFlowV1 is a system implemented in .NET 7 REST API using CQRS implementation with raw SQL and DDD using Clean Architecture.
 ==============================================================
 
 ## Description
-CashFlowV1 is a system .NET 7 REST API application implemented with basic [CQRS](https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/cqrs) approach and Domain Driven Design. The system is divided into logical layers. Basically this logical division consists of the API, Application, Domain and Infrastructure layers.
+CashFlowV1 is a system implemented in .NET 7 REST API application implemented with basic [CQRS](https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/cqrs) approach and Domain Driven Design. The system is divided into logical layers. Basically this logical division consists of the API, Application, Domain and Infrastructure layers.
 
 
  ![projects_dependencies](img/clean_architecture.jpg)
