@@ -3,13 +3,13 @@ using MediatR;
 
 namespace CashFlow.Application.Moviment.Save
 {
-    public class SaveMovimentCommand : CommandBase<Unit>
+    public class SaveMovimentCommand : CommandBase<bool>
     {
         public decimal ValueMoviment { get; }
-        public int TypeMoviment { get; }
+        public string? TypeMoviment { get; }
         public string? NamePerson { get; }
-        public int TypePerson { get; }
-        public SaveMovimentCommand(decimal valueMoviment, int typeMoviment, string? namePerson, int typePerson)
+        public string? TypePerson { get; }
+        public SaveMovimentCommand(decimal valueMoviment, string? typeMoviment, string? namePerson, string? typePerson)
         {
             ValueMoviment = valueMoviment;
             TypeMoviment = typeMoviment;

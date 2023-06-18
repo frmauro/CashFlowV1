@@ -6,7 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace CashFlow.Application.Moviment.Save
 {
-    internal sealed class SaveMovimentCommandHandlers : ICommandHandler<SaveMovimentCommand, Unit>
+    internal sealed class SaveMovimentCommandHandlers : ICommandHandler<SaveMovimentCommand, bool>
     {
         private readonly IMovementRepository _repository;
 
@@ -14,39 +14,38 @@ namespace CashFlow.Application.Moviment.Save
         {
             _repository = repository;
         }
-        public async Task<Unit> Handle(SaveMovimentCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(SaveMovimentCommand request, CancellationToken cancellationToken)
         {
-            if (!isValid(request)) throw new ValidationException();
+            if (!isValid(request)) return false;
 
             var entity = new Movement
             {
                 Value = request.ValueMoviment,
                 Data = DateTime.Now,
-                Type = (MovementType)request.TypeMoviment,
+                Type = (MovementType)Convert.ToInt32(request.TypeMoviment),
                 Person = new Person()
             };
-            entity.Person.Type = (PersonType)request.TypePerson;
+            entity.Person.Type = (PersonType)Convert.ToInt32(request.TypePerson);
             entity.Person.Name = request.NamePerson;
             await _repository.AddAsync(entity);
-            return Unit.Value;
+            return true;
         }
 
         private bool isValid(SaveMovimentCommand request)
         {
-            bool isValid = true;
-            if (request.ValueMoviment <= 0)
-                isValid = false;
+            if (request.ValueMoviment <= 0) return false;
 
-            if (request.TypeMoviment != 0 && request.TypeMoviment != 1)
-                isValid = false;
+            if (string.IsNullOrEmpty(request.TypeMoviment)) return false;
 
-            if (string.IsNullOrEmpty(request.NamePerson))
-                isValid = false;
+            if (request.TypeMoviment != "0" & request.TypeMoviment != "1") return false;
 
-            if (request.TypePerson < 0 && request.TypePerson > 1)
-                isValid = false;
+            if (string.IsNullOrEmpty(request.NamePerson)) return false;
 
-            return isValid;
+            if (string.IsNullOrEmpty(request.TypePerson)) return false;
+
+            if (request.TypePerson != "0" & request.TypePerson != "1") return false;
+
+            return true;
         }
     }
 }

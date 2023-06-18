@@ -1,4 +1,6 @@
 using AutoMapper;
+using Azure;
+using CashFlow.Application.Exceptions;
 using CashFlow.Application.Moviment;
 using CashFlow.Application.Moviment.Query;
 using CashFlow.Application.Moviment.Save;
@@ -37,9 +39,10 @@ namespace CashFlow.Controllers
                   [FromBody] MovementDto dto
               )
         {
-            var command = new SaveMovimentCommand(dto.MovementValue, Convert.ToInt32(dto.MovementType), dto.PersonName, Convert.ToInt32(dto.PersonType));
+            var command = new SaveMovimentCommand(dto.MovementValue, dto.MovementType, dto.PersonName, dto.PersonType);
             var response = mediator.Send(command);
-            return Ok(response);
+            var result = response.Result;
+            return result ? Ok(result) : BadRequest(result);
         }
     }
 }
