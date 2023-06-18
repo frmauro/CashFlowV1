@@ -10,7 +10,7 @@ Sample .NET 7 REST API application implemented with basic [CQRS](https://docs.mi
 
 ## Steps to run application on local machine in windows 11 environment.
 
-## docker run command to create a container with the latest SQL Server image. 
+## 1 - docker run command to create a container with the latest SQL Server image. 
  docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Pass@word" -p 1433:1433 --name sqldata  -d mcr.microsoft.com/mssql/server:2019-latest
  
-## Run the command "Add-Migration InitialCreate" and next step run the command  "Update-Database" to create the Database "MovementDb".
+## 2 - Run the command "Add-Migration InitialCreate" and next step run the command  "Update-Database" to create the Database "MovementDb".
