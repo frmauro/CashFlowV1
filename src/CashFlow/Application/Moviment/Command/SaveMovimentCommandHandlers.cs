@@ -14,6 +14,18 @@ namespace CashFlow.Application.Moviment.Save
         }
         public async Task<Unit> Handle(SaveMovimentCommand request, CancellationToken cancellationToken)
         {
+            if (request.ValueMoviment <= 0)
+                return Unit.Value;
+
+            if (request.TypeMoviment != 0 && request.TypeMoviment != 1)
+                return Unit.Value;
+
+            if (string.IsNullOrEmpty(request.NamePerson))
+                return Unit.Value;
+
+            if (request.TypePerson < 0 && request.TypePerson > 1)
+                return Unit.Value;
+
             var entity = new Movement
             {
                 Value = request.ValueMoviment,
