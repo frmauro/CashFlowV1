@@ -38,7 +38,7 @@ namespace CashFlowIntegrationTest
             var response = await client.PostAsJsonAsync("/CashFlow/", new MovementDto {
                     MovementValue = 200,
                     MovementType = "1",
-                    PersonName = "Test",
+                    PersonName = $"TestName_{DateTime.Now.Millisecond}",
                     PersonType = "1",
             }) ;
             // Assert

@@ -21,7 +21,7 @@ namespace CashFlow.Application.Moviment.Save
             var entity = new Movement
             {
                 Value = request.ValueMoviment,
-                Data = DateTime.Now,
+                Data = DateTime.Now.Date,
                 Type = (MovementType)Convert.ToInt32(request.TypeMoviment),
                 Person = new Person()
             };
