@@ -1,3 +1,6 @@
+using Azure.Core;
+using CashFlow.Application.Configuration.Commands;
+using CashFlow.Application.Moviment.Save;
 using CashFlow.Domain;
 using Moq;
 
@@ -11,23 +14,54 @@ namespace CashFlowUnitTest
         }
 
         [Test]
-        public void TestGetById()
+        public void TestAdd_Success()
         {
-            var id = 348;
-            var entityReturn = new Movement()
-            {
-                Id = id,
-                Person = new Person()
-            };
+            bool resultValue = true;
 
-            Mock<IMovementRepository> mock = new Mock<IMovementRepository>();
-            mock.Setup(m => m.GetByIdAsync(id).Result).Returns(entityReturn);
+            decimal valueMovement = 200;
+            string typeMovement = "1";
+            string namePerson = "Name Person 001";
+            string typePerson = "1";
+
+            CancellationToken cancellationToken = new CancellationToken();
+
+            var command = new SaveMovimentCommand(valueMovement, typeMovement, namePerson, typePerson);
+
+            Mock<ICommandHandler<SaveMovimentCommand, bool>> mock = new Mock<ICommandHandler<SaveMovimentCommand, bool>>();
+            mock.Setup(m => m.Handle(command, cancellationToken).Result).Returns(resultValue);
 
             // act
-            var result = mock.Object.GetByIdAsync(id).Result;
+            var result = mock.Object.Handle(command, cancellationToken).Result;
 
             // assert
-            Assert.That(entityReturn, Is.EqualTo(result));
+            Assert.That(resultValue, Is.EqualTo(result));
         }
+
+
+        [Test]
+        public void TestAdd_Fail()
+        {
+            bool resultValue = false;
+
+            decimal valueMovement = 0;
+            string typeMovement = "";
+            string namePerson = "";
+            string typePerson = "";
+
+            CancellationToken cancellationToken = new CancellationToken();
+
+            var command = new SaveMovimentCommand(valueMovement, typeMovement, namePerson, typePerson);
+
+            Mock<ICommandHandler<SaveMovimentCommand, bool>> mock = new Mock<ICommandHandler<SaveMovimentCommand, bool>>();
+            mock.Setup(m => m.Handle(command, cancellationToken).Result).Returns(resultValue);
+
+            // act
+            var result = mock.Object.Handle(command, cancellationToken).Result;
+
+            // assert
+            Assert.That(resultValue, Is.EqualTo(result));
+        }
+
+
     }
 }
